@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Shopping Cart</title>
+</head>
+<body>
+    <h1>Shopping Cart</h1>
+
+    <div th:if="${message}" th:text="${message}"></div>
+    <div th:if="${error}" th:text="${error}"></div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="item : ${cartItems}">
+                <td th:text="${item.produkt.nameD}"></td>
+                <td th:text="${item.quantity}"></td>
+                <td th:text="${item.produkt.price}"></td>
+                <td th:text="${item.totalPrice}"></td>
+                <td>
+                    <form th:action="@{/cart/remove}" method="post">
+                        <input type="hidden" name="userId" th:value="${userId}" />
+                        <input type="hidden" name="productId" th:value="${item.produkt.idD}" />
+                        <button type="submit">Remove</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <p>Total Price: <span th:text="${totalPrice}"></span></p>
+        
+        <form th:action="@{/cart/clear}" method="post">
+            <input type="hidden" name="userId" th:value="${userId}" />
+            <button type="submit">Clear Cart</button>
+        </form>
+    </div>
+    
+</body>
+</html>

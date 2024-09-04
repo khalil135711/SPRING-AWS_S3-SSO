@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Online Drink Shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #121212; 
+            background-image: url('https://i.postimg.cc/yNhKHfss/temp-Imagea-Czftz.avif');  /* Background image URL */
+            background-size: cover;  
+            background-position: center;  
+            background-repeat: no-repeat;  
+            margin: 0;
+            padding: 0;
+            color: #e0e0e0;  
+        }
+        .header {
+            background-color: rgba(30, 30, 30, 0.8);  
+            color: #ffab40;  
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+            text-align: center;
+            background-color: rgba(30, 30, 30, 0.6);  
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 800px; /* Center the container and set a maximum width */
+        }
+        .container h1 {
+            color: #ffab40;  
+        }
+        .cta-button {
+            background-color: #ff5722;  
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .cta-button:hover {
+            background-color: #e64a19; 
+        }
+        .shop-info {
+            margin-top: 40px;
+        }
+        .shop-info p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #b0b0b0; 
+        }
+        .features {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .feature {
+            background-color: rgba(30, 30, 30, 0.8);  
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            flex: 1;
+            max-width: 300px;
+            text-align: center;
+        }
+        .feature i {
+            font-size: 40px;
+            color: #ffab40; 
+            margin-bottom: 15px;
+        }
+        .footer {
+            background-color: rgba(30, 30, 30, 0.8);  
+            color: #ffab40;  
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+            margin-top: 40px; /* Add some margin above the footer */
+        }
+        a {
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            .features {
+                flex-direction: column;
+                align-items: center;
+            }
+            .cta-button {
+                width: 100%; /* Make the button take full width on smaller screens */
+                max-width: 300px; /* Maximum width for button */
+            }
+            .container {
+                padding: 20px;
+                margin: 20px;
+                width: calc(100% - 40px); /* Ensure container doesn't touch the edges */
+            }
+        }
+        @media (max-width: 480px) {
+            .header, .footer {
+                padding: 15px;
+            }
+            .cta-button {
+                padding: 10px 20px;
+                font-size: 16px; /* Reduce font size for smaller screens */
+            }
+            .shop-info p {
+                font-size: 16px; /* Adjust font size for better readability */
+            }
+            .feature {
+                max-width: 90%; /* Make features narrower on smaller screens */
+                margin: 10px auto; /* Center the feature boxes */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Welcome to Online Drink Shop</h1>
+    <p>Your one-stop shop for refreshing beverages!</p>
+</div>
+
+<div class="container">
+    <h1>Discover the Best Drinks in Town!</h1>
+    <p>From coffee to cocktails, find everything you need to quench your thirst. Browse our exclusive collection of beverages and enjoy top-notch customer service.</p>
+    
+    <a href="/oauth2/authorization/gitlab-ce"><button class="cta-button">Explore Our Shop</button></a>
+</div>
+
+<div class="features">
+    <div class="feature">
+        <i class="fas fa-coffee"></i>
+        <h3>Fresh Coffee</h3>
+        <p>Discover a wide range of freshly brewed coffee.</p>
+    </div>
+    <div class="feature">
+        <i class="fas fa-wine-glass-alt"></i>
+        <h3>Fine Wine</h3>
+        <p>Savor the taste of exquisite wines from around the world.</p>
+    </div>
+    <div class="feature">
+        <i class="fas fa-beer"></i>
+        <h3>Craft Beer</h3>
+        <p>Try our exclusive selection of craft beers.</p>
+    </div>
+</div>
+
+<div class="footer">
+    <p>&copy; 2024 Online Drink Shop. All rights reserved.</p>
+</div>
+
+</body>
+</html>

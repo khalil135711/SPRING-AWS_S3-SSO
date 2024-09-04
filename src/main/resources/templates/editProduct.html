@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Product</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="mb-4">Edit Product</h1>
+        <form action="/updateProduct" method="post">
+            <input type="hidden" name="idD" th:value="${product.idD}" />
+            <div class="mb-3">
+                <label for="nameD" class="form-label">Name:</label>
+                <input type="text" id="nameD" name="nameD" class="form-control" th:value="${product.nameD}" required />
+            </div>
+            <div class="mb-3">
+                <label for="typeD" class="form-label">Type:</label>
+                <input type="text" id="typeD" name="typeD" class="form-control" th:value="${product.typeD}" required />
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Price:</label>
+                <input type="number" step="0.01" id="price" name="price" class="form-control" th:value="${product.price}" required />
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Bearbeitung beenden</button>
+            </div>
+        </form>
+        <a href="/products" class="btn btn-secondary">Abbrechen</a>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

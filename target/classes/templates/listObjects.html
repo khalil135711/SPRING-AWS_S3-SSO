@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>S3 Objects List</title>
+</head>
+<body>
+    <h1>Objects in S3 Bucket</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>Size (bytes)</th>
+                <th>Last Modified</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="object : ${objects}">
+                <td th:text="${object.key()}"></td>
+                <td th:text="${object.size()}"></td>
+                <td th:text="${object.lastModified()}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

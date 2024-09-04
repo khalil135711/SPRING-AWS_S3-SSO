@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Product Added</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+    <div class="container mt-5">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Product successfully added!</h4>
+            <p th:text="${message}"></p>
+        </div>
+
+        <h2 class="mb-4">Product Details:</h2>
+        <dl class="row">
+            <dt class="col-sm-3">ID:</dt>
+            <dd class="col-sm-9" th:text="${product.idD}"></dd>
+
+            <dt class="col-sm-3">Name:</dt>
+            <dd class="col-sm-9" th:text="${product.nameD}"></dd>
+
+            <dt class="col-sm-3">Type:</dt>
+            <dd class="col-sm-9" th:text="${product.typeD}"></dd>
+        </dl>
+
+        <a href="/products" class="btn btn-primary">Back to Product List</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+</body>
+</html>

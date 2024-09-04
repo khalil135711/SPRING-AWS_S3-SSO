@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>OnlineShop Admin Members</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-image: url('https://i.postimg.cc/6qJDkxwh/temp-Image13i-VJP.avif'); 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 16px;
+            text-align: left;
+            background-color: rgba(255, 255, 255, 0.8); 
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        a {
+            color: #1a0dab;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        .modal-header {
+            background-color: #007bff;
+            color: white;
+        }
+        .disabled-option {
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMemberModal">
+    <img src="https://cdn-icons-png.flaticon.com/128/4668/4668814.png" alt="Add Icon" style="width: 20px; height: 20px; margin-right: 8px;"/>
+    Add New Admin
+</button>
+
+
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>ID</th>
+                <th>Mail</th>
+                <th>Username</th>
+                <th>Name</th>
+                <th>State</th>
+                <th>Web URL</th>
+                <th>Creation Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="members : ${members}">
+                <td>
+                    <img src="https://i.postimg.cc/nzg8HmZZ/temp-Image-Bdl-HBY.avif" alt="Avatar" class="avatar"/>
+                </td>
+                <td th:text="${members.id}"></td>
+                <td>
+                    <span th:text="|${members.username}@alumni.fh-aachen.de|"></span>
+                    <br/> 
+                    <span th:text="'Added by: ' + ${members.created_by.name}" style="color: blue;"></span>
+                </td>
+                <td th:text="${members.username}"></td>
+                <td th:text="${members.name}"></td>
+                <td th:text="${members.state}"></td>
+                <td><a th:href="${members.web_url}" th:text="${members.web_url}" target="_blank"></a></td>
+                <td th:text="${members.created_at}"></td>
+                <td>
+                    <!-- Form to delete a member -->
+                    <form th:action="@{/deleteMember/{id}(id=${members.id})}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Add Member Modal -->
+    <div class="modal fade" id="addMemberModal" tabindex="-1" role="dialog" aria-labelledby="addMemberModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addMemberModalLabel">Add New Member</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/addMember}" method="post" id="addMemberForm">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="accessLevel">Access Level</label>
+                            <select id="accessLevel" name="accessLevel" class="form-control">
+                                <option value="30" disabled class="disabled-option">Developer</option>
+                                <option value="40" disabled class="disabled-option">Maintainer</option>
+                                <option value="50">Owner</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Member</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

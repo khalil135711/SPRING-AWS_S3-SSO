@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drink Shop - Refreshing Drinks for Every Occasion</title>
+    
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: url('https://thekitchencommunity.org/wp-content/uploads/2021/11/Mixed-Drinks.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #000;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7); 
+            z-index: -1; 
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.95); 
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); 
+        }
+        h1, h2 {
+            color: #28a745; 
+            font-weight: bold;
+            text-align: center;
+        }
+        h2 {
+            margin-top: 40px;
+            border-bottom: 2px solid #28a745;
+            padding-bottom: 10px;
+        }
+        .list-group-item {
+            background-color: #f8f9fa; 
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .list-group-item:hover {
+            transform: scale(1.02); 
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 10px 20px;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: scale(1.05); 
+        }
+        .form-control {
+            width: 100%; 
+            max-width: 400px; 
+        }
+        .product-img {
+            max-width: 120px;
+            height: auto;
+            margin-right: 20px;
+            border-radius: 10px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+        }
+        .footer {
+            background-color: #28a745;
+            color: #fff;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 40px;
+            font-size: 14px;
+        }
+        .search-bar {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .no-products {
+            display: none;
+            text-align: center;
+            color: #dc3545;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Welcome to Our Drink Shop</h1>
+        <p class="text-center">Refreshing drinks for every occasion. Browse our selection below.</p>
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" id="search-bar" class="form-control" placeholder="Search drinks...">
+        </div>
+
+        <!-- No Products Message -->
+        <div id="no-products" class="no-products">
+            <p>No products found matching your search criteria.</p>
+        </div>
+        
+        <div>
+            <h2>Our Drinks</h2>
+            <ul id="drinks-list" class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center" th:each="product : ${products}" data-name-th="${product.nameD}" data-type-th="${product.typeD}" data-price-th="${product.price}">
+                    <div class="d-flex align-items-center">
+                        <img th:src="${product.imageUrl}" alt="Product Image" class="product-img">
+                        <div>
+                            <h3 th:text="${product.nameD}">Product Name</h3>
+                            <p th:text="'Type: ' + ${product.typeD}">Product Type</p>
+                            <p th:text="'Price: $' + ${product.price}">Product Price</p>
+                        </div>
+                    </div>
+                    
+                    <form action="/addToCart" method="post" class="form-inline">
+                        <input type="hidden" name="productId" th:value="${product.idD}">
+                        <div class="form-group mr-3">
+                            <input type="number" name="quantity" min="1" value="1" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2024 Drink Shop. All Rights Reserved.</p>
+    </footer>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        document.getElementById('search-bar').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const listItems = document.querySelectorAll('#drinks-list .list-group-item');
+            let anyItemVisible = false;
+
+            listItems.forEach(item => {
+                const productName = item.querySelector('h3').innerText.toLowerCase();
+                const productType = item.querySelectorAll('p')[0].innerText.toLowerCase(); // Type is the first <p>
+                const productPrice = item.querySelectorAll('p')[1].innerText.toLowerCase(); // Price is the second <p>
+
+                const matches = productName.includes(searchTerm) || productType.includes(searchTerm) || productPrice.includes(searchTerm);
+
+                // Display items that match the search term exactly
+                if (searchTerm === "" || matches) {
+                    item.style.display = '';
+                    anyItemVisible = true;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Show or hide "No products found" message
+            document.getElementById('no-products').style.display = anyItemVisible ? 'none' : 'block';
+        });
+    </script>
+</body>
+</html>

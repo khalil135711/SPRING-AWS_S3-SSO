@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Your Cart</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa; 
+            background-image: url('https://www.travelandleisure.com/thmb/MwEJmJ62eYncsnXsDV8CHFp1ttM=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/food-drink-cocktails-spirits-top-shelf-liquor-bar-cart-16b99072993340fe91291634f2ebe7fb.png'); /* Replace with your background image URL */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Arial', sans-serif;
+        }
+
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.9); 
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #343a40; 
+            text-align: center;
+        }
+
+        .list-group-item {
+            background-color: #ffffff; 
+            border: 1px solid #dee2e6; 
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .list-group-item h3 {
+            color: #007bff; 
+        }
+
+        .list-group-item small {
+            color: #28a745; 
+        }
+
+        .btn-primary {
+            background-color: #007bff; 
+            border-color: #007bff;
+        }
+
+        .btn-warning {
+            background-color: #ffc107; 
+            border-color: #ffc107;
+        }
+
+        .btn-danger {
+            background-color: #dc3545; 
+            border-color: #dc3545;
+        }
+
+        form {
+            margin-top: 10px;
+        }
+
+        button {
+            margin-top: 10px;
+        }
+
+       
+        .product-img {
+            max-width: 100px; 
+            height: auto;
+            margin-right: 20px;
+        }
+
+        .d-inline-block.ml-2 {
+            margin-left: 15px !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">🛒</h1>
+        <br><button class="btn btn-primary" onclick="window.location.href='/productList'">Anderes Getränk auswählen</button>
+        <div>
+            <h2 class="mb-4">Cart Items</h2>
+            <ul class="list-group">
+                <li th:each="cartItem : ${cart.items}" class="list-group-item">
+                    <div class="d-flex w-100 justify-content-between">
+                        <!-- Product Image -->
+                        <img th:src="${cartItem.product.imageUrl}" alt="Product Image" class="product-img">
+                        
+                        <div class="flex-grow-1">
+                            <h3 class="mb-1" th:text="${cartItem.product.nameD}">Product Name</h3>
+                            <small th:text="'Price: $' + ${cartItem.product.price}">Price</small>
+                            <p class="mb-1" th:text="'Quantity: ' + ${cartItem.quantity}">Quantity</p>
+                        </div>
+                    </div>
+
+                    <form action="/cart/update" method="post" class="d-inline-block">
+                        <input type="hidden" name="productId" th:value="${cartItem.product.idD}" />
+                        <input type="number" name="quantity" min="1" th:value="${cartItem.quantity}" class="form-control d-inline-block w-auto" />
+                        <button type="submit" class="btn btn-warning">✍🏻</button>
+                    </form>
+
+                    <form action="/cart/delete" method="post" class="d-inline-block ml-2">
+                        <input type="hidden" name="productId" th:value="${cartItem.product.idD}" />
+                        <button type="submit" class="btn btn-danger">✖</button>
+                    </form>
+                </li>
+            </ul>
+
+            <!-- Total Price -->
+            <div class="mt-4">
+                <h3>Total Price: $<span th:text="${totalPrice}">0.00</span></h3>
+            </div>
+
+            <!-- Checkout button -->
+            <form action="/checkout" method="post" class="mt-4">
+                <button type="submit" class="btn btn-primary">Proceed to Checkout</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

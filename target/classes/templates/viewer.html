@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        iframe {
+            width: 100%;
+            height: 80vh; /* Adjust height as needed */
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>PDF Viewer</h1>
+    <label for="fileSelect">Select a PDF file:</label>
+    <select id="fileSelect" onchange="loadPDF()">
+    </select>
+    <br><br>
+    <iframe id="pdfViewer"></iframe>
+
+    <script>
+        // Function to load PDF list and populate the dropdown
+        function loadFileList() {
+            fetch('/api/files/list')
+                .then(response => response.json())
+                .then(files => {
+                    const select = document.getElementById('fileSelect');
+                    select.innerHTML = ''; // Clear existing options
+                    files.forEach(file => {
+                        const option = document.createElement('option');
+                        option.value = file;
+                        option.textContent = file;
+                        select.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching file list:', error));
+        }
+
+        // Function to load selected PDF into iframe
+        function loadPDF() {
+            const fileName = document.getElementById('fileSelect').value;
+            const iframe = document.getElementById('pdfViewer');
+            if (fileName) {
+                iframe.src = `/api/files/view/${fileName}`;
+            }
+        }
+
+        // Load file list on page load
+        window.onload = loadFileList;
+    </script>
+</body>
+</html>
