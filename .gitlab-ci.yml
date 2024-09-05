@@ -1,0 +1,28 @@
+#stages:
+ # - build
+ # - setup
+ # - teardown
+####### 
+#build:
+ # stage: build
+ # script:
+  #  - echo Hello World
+    #- echo ${CI_REGISTRY_PASSWORD} | docker login ${CI_REGISTRY} -u ${CI_REGISTRY_USER} --password-stdin
+    #- docker buildx build --tag "${CI_REGISTRY_IMAGE}:latest" --push . 
+
+#setup:
+ # stage: setup
+ # script:
+  #  - cd inf
+  #  - terraform init -input=false
+  #  - terraform plan -input=false -out tfplan -var "container_registry=${CI_REGISTRY}" -var "container_registry_user=${CI_REGISTRY_USER}" -var "container_registry_password=${CI_REGISTRY_PASSWORD}" -var "container_image=${CI_REGISTRY_IMAGE}"
+  #  - terraform apply -input=false tfplan
+  #  - sleep 120
+
+#teardown:
+ # stage: teardown
+ # script:
+ #   - cd inf
+ #   - terraform init -input=false
+ #   - terraform destroy -input=false -auto-approve -var "container_registry=${CI_REGISTRY}" -var "container_registry_user=${CI_REGISTRY_USER}" -var "container_registry_password=${CI_REGISTRY_PASSWORD}" -var "container_image=${CI_REGISTRY_IMAGE}"
+ # when: manual
