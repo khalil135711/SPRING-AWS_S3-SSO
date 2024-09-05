@@ -4,9 +4,8 @@ Bitte schauen Sie sich das Video an, um dieses Projekt zu verstehen.
 
 
 
-# designed also by Me ;•)----
-#                            !
-#                            v
+# ------------------------------------------------------------------------designed also by Me ;•)--------------------------------------------------
+
 
 
 
